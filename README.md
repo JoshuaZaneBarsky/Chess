@@ -19,3 +19,5 @@ This game of chess contains the following files.
 | . |   | . |   | . |   | . |   |
 | ♟ | ♟ | ♟ | ♟ | ♟ | ♟ | ♟ | ♟ |
 | ♜ | ♞ | ♝ | ♛ | ♚ | ♝ | ♞ | ♜ |
+
+Note: Unicode characters are not rendered on Github the way it is rendered in console. Colors and shapes may look off on the Github README.
