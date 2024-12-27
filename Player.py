@@ -6,11 +6,11 @@ class Player():
         self.color = color
 
         # initialize pieces
-        self.king = [Piece("king")] # will only have 1 piece
-        self.queen = [Piece("queen")] # will only have 1 piece
-        self.rooks = [Piece("rook"), Piece("rook")]
-        self.knights = [Piece("knight"), Piece("knight")]
-        self.bishops = [Piece("bishop"), Piece("bishop")]
-        self.pawns = [Piece("pawn"), Piece("pawn"), Piece("pawn"), Piece("pawn"), 
-                      Piece("pawn"), Piece("pawn"), Piece("pawn"), Piece("pawn")]
+        self.king = [Piece("king", self.color)] # will only have 1 piece
+        self.queen = [Piece("queen", self.color)] # will only have 1 piece
+        self.rooks = [Piece("rook", self.color), Piece("rook", self.color)]
+        self.knights = [Piece("knight", self.color), Piece("knight", self.color)]
+        self.bishops = [Piece("bishop", self.color), Piece("bishop", self.color)]
+        self.pawns = [Piece("pawn", self.color), Piece("pawn", self.color), Piece("pawn", self.color), Piece("pawn", self.color), 
+                      Piece("pawn", self.color), Piece("pawn", self.color), Piece("pawn", self.color), Piece("pawn", self.color)]
         
