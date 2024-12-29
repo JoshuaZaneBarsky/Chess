@@ -53,11 +53,15 @@ class Board():
         rows_with_moves = []
         for i in range(size):
             moves = ""
-            for j in range(len(self.rows[i])):
-                if j != 0 and self.rows[i][j-1] == "│": moves += "▾"
-                else: moves += self.rows[i][j]
+            for j in range(len(self.rows[i])): self.append_moves(i,j, moves)
             rows_with_moves.append(moves)
         self.rows = rows_with_moves
+
+    def append_moves(self, i, j, moves):
+        if j != 0 and self.rows[i][j-1] == "│": 
+            moves += "▾"
+        else: 
+            moves += self.rows[i][j]
 
     # Emptys the board moves
     def empty_board_moves(self):
