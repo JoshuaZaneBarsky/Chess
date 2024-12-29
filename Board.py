@@ -27,7 +27,7 @@ class Board():
     #--- Functions to print the board ---#
     
     def print_board_to_console(self, piece = None):
-        self.set_up_board_moves(piece)
+        self.update_board_with_moves(piece) # if piece == None, prints board normally
         self.print_current_board()
         self.empty_board_moves()
 
@@ -47,30 +47,45 @@ class Board():
         print(" " + bottom_border)
         print()
 
-    #  edits rows based on moves
-    def set_up_board_moves(self, piece): # piece will show the possible board moves for any piece (optional parameter)
-        self.rows = ["│ " + (" │ ".join(row)) + " │" for row in self.board]
-        if piece == None:
-            return
-        size = len(self.board)
-        self.update_board_with_moves(piece)
-
+    # updates the board with piece moves
     def update_board_with_moves(self, piece):
+        self.rows = ["│ " + (" │ ".join(row)) + " │" for row in self.board]
         if piece == None:
             return
         rows_with_moves = []
         for i in range(BOARD_SIZE):
+            row_string_length = len(self.rows[i])
             moves = ""
-            for j in range(len(self.rows[i])): moves += self.append_piece_moves(i,j, piece)
+            for j in range(row_string_length): moves += self.append_piece_moves(i,j, piece) # find where to append "▾" to row
             rows_with_moves.append(moves)
         self.rows = rows_with_moves
 
-    def append_piece_moves(self, i, j, moves):
+    # appends piece moves
+    def append_piece_moves(self, i, j, piece):
+        moves = ""
         if j != 0 and self.rows[i][j-1] == "│": 
-            moves += "▾"
+            moves += self.check_if_move_is_board_legal(i,j, piece) # append "▾" or " " to row
         else: 
-            moves += self.rows[i][j]
+            moves += self.rows[i][j] # append row character as-is
         return moves
+    
+    def check_if_move_is_board_legal(self, i, j, piece) -> str:
+        # board legal moves for (0<=i and i<=7) -->  0,1,2,...,7
+        # board legal j moves are (j-1)%4==0 --> 1,5,9,13,...
+        legal_moves = piece.get_legal_moves() # tuple
+        for r in range(BOARD_SIZE):
+            for c in range(BOARD_SIZE):
+                if self.board[r][c] == piece.get_unicode_symbol(): piece_pos = (i,(j-1)%4) # finds current pos piece name on board
+
+        print(piece_pos)
+        piece_legal_moves = piece.get_piece_current_legal_moves(piece_pos, legal_moves) # 2D list
+
+        if piece_legal_moves[i][(j-1)%4] == 1:
+            return "▾"
+
+        # add code to compare piece_legal_moves to self.board
+        # valid moves will have "▾"
+        return " "
 
     # Emptys the board moves
     def empty_board_moves(self):

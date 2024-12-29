@@ -4,6 +4,8 @@ from Game import Game
 
 def run():
     game = Game()
-    game.board.print_board_to_console()
+    king_moves = game.black.king[0].get_legal_moves()
+    king = game.black.king[0]
+    game.board.print_board_to_console(king)
 
 run()
