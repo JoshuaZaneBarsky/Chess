@@ -1,4 +1,8 @@
 # Class that holds the blueprint for the board object.
+
+global BOARD_SIZE
+BOARD_SIZE = 8
+
 class Board():
     def __init__(self):
         # self.board is the current board with pieces
@@ -31,16 +35,15 @@ class Board():
     
     # prints the board to the console
     def print_current_board(self):
-        size = len(self.board)
-        top_border = "┌" + "───┬" * (size - 1) + "───┐"
-        middle_border = "├" + "───┼" * (size - 1) + "───┤"
-        bottom_border = "└" + "───┴" * (size - 1) + "───┘"
+        top_border = "┌" + "───┬" * (BOARD_SIZE - 1) + "───┐"
+        middle_border = "├" + "───┼" * (BOARD_SIZE - 1) + "───┤"
+        bottom_border = "└" + "───┴" * (BOARD_SIZE - 1) + "───┘"
         print()
         print("   A   B   C   D   E   F   G   H")
         print(" " + top_border)
         for i, row in enumerate(self.rows):
             print(str(8-i) + row)
-            if i < size - 1: print(" " + middle_border)
+            if i < BOARD_SIZE - 1: print(" " + middle_border)
         print(" " + bottom_border)
         print()
 
@@ -50,18 +53,24 @@ class Board():
         if piece == None:
             return
         size = len(self.board)
+        self.update_board_with_moves(piece)
+
+    def update_board_with_moves(self, piece):
+        if piece == None:
+            return
         rows_with_moves = []
-        for i in range(size):
+        for i in range(BOARD_SIZE):
             moves = ""
-            for j in range(len(self.rows[i])): self.append_moves(i,j, moves)
+            for j in range(len(self.rows[i])): moves += self.append_piece_moves(i,j, piece)
             rows_with_moves.append(moves)
         self.rows = rows_with_moves
 
-    def append_moves(self, i, j, moves):
+    def append_piece_moves(self, i, j, moves):
         if j != 0 and self.rows[i][j-1] == "│": 
             moves += "▾"
         else: 
             moves += self.rows[i][j]
+        return moves
 
     # Emptys the board moves
     def empty_board_moves(self):
