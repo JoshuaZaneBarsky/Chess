@@ -46,11 +46,11 @@ class Piece():
         return (('↑'), 1)
     
 # ---- Gets the current legal moves for a specific piece ---- #
-    def get_piece_current_legal_moves(self, piece_pos, legal_moves)-> list:
+    def get_piece_current_legal_moves(self, piece_pos)-> list:
         current_piece_legal_moves = [[0 for j in range(BOARD_SIZE)] for i in range(BOARD_SIZE)] #2d list of zeros
         if piece_pos == None:
             return current_piece_legal_moves
-        for arrow in legal_moves[0]:
+        for arrow in self.get_legal_moves()[0]:
             match arrow:
                 case "→": current_piece_legal_moves = self.fill_right_of_piece(piece_pos, current_piece_legal_moves)
         return current_piece_legal_moves
@@ -60,8 +60,8 @@ class Piece():
             for j in range(BOARD_SIZE):
                 if i != piece_pos[0]:
                     pass
-                if j > piece_pos[1] and i == piece_pos[0]:
-                    current_piece_legal_moves[i][j] = 0
+                if i == piece_pos[0] and j > piece_pos[1]:
+                    current_piece_legal_moves[i][j] = 1
         return current_piece_legal_moves
 
 

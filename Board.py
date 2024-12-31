@@ -72,15 +72,14 @@ class Board():
     def check_if_move_is_board_legal(self, i, j, piece) -> str:
         # board legal moves for (0<=i and i<=7) -->  0,1,2,...,7
         # board legal j moves are (j-1)%4==0 --> 1,5,9,13,...
-        legal_moves = piece.get_legal_moves() # tuple
+        #legal_moves = piece.get_legal_moves() # tuple
         for r in range(BOARD_SIZE):
             for c in range(BOARD_SIZE):
-                if self.board[r][c] == piece.get_unicode_symbol(): piece_pos = (i,(j-1)%4) # finds current pos piece name on board
+                if self.board[r][c] == piece.get_unicode_symbol(): piece_pos = (r,c) # finds current pos piece name on board
 
-        print(piece_pos)
-        piece_legal_moves = piece.get_piece_current_legal_moves(piece_pos, legal_moves) # 2D list
+        piece_legal_moves = piece.get_piece_current_legal_moves(piece_pos) # 2D list
 
-        if piece_legal_moves[i][(j-1)%4] == 1:
+        if piece_legal_moves[i][(j-1)//4] == 1:
             return "▾"
 
         # add code to compare piece_legal_moves to self.board
