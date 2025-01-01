@@ -1,6 +1,8 @@
 # Class that holds the blueprint for the piece object.
 # The piece can be and of {rook, knight, bishop, king, queen, pawn}
 
+import pdb
+
 global BOARD_SIZE
 BOARD_SIZE = 8
 
@@ -53,8 +55,12 @@ class Piece():
         for arrow in self.get_legal_moves()[0]:
             match arrow:
                 case "→": current_piece_legal_moves = self.fill_right_of_piece(piece_pos, current_piece_legal_moves)
+                case "←": current_piece_legal_moves = self.fill_left_of_piece(piece_pos, current_piece_legal_moves)
+                case "↑": current_piece_legal_moves = self.fill_above_piece(piece_pos, current_piece_legal_moves)
+                case "↓": current_piece_legal_moves = self.fill_below_piece(piece_pos, current_piece_legal_moves)
         return current_piece_legal_moves
     
+    # →
     def fill_right_of_piece(self, piece_pos, current_piece_legal_moves) -> list:
         for i in range(BOARD_SIZE):
             for j in range(BOARD_SIZE):
@@ -62,6 +68,41 @@ class Piece():
                     pass
                 if i == piece_pos[0] and j > piece_pos[1]:
                     current_piece_legal_moves[i][j] = 1
+                    if self.get_legal_moves()[1] == 1: return current_piece_legal_moves
+        return current_piece_legal_moves
+    
+    # ←
+    def fill_left_of_piece(self, piece_pos, current_piece_legal_moves) -> list:
+        for i in range(BOARD_SIZE):
+            for j in range(BOARD_SIZE):
+                if i != piece_pos[0]:
+                    pass
+                if i == piece_pos[0] and j < piece_pos[1]:
+                    current_piece_legal_moves[i][j] = 1
+                    if self.get_legal_moves()[1] == 1: return current_piece_legal_moves
+        return current_piece_legal_moves
+    
+    # ↑
+    def fill_above_piece(self, piece_pos, current_piece_legal_moves) -> list:
+        for i in range(BOARD_SIZE):
+            for j in range(BOARD_SIZE):
+                if j != piece_pos[1]:
+                    pass
+                if j == piece_pos[1] and i < piece_pos[0]:
+                    current_piece_legal_moves[i][j] = 1
+                    if self.get_legal_moves()[1] == 1: return current_piece_legal_moves
+        return current_piece_legal_moves
+    
+    # ↓
+    def fill_below_piece(self, piece_pos, current_piece_legal_moves) -> list:
+        for i in range(BOARD_SIZE):
+            for j in range(BOARD_SIZE):
+                if j != piece_pos[1]:
+                    pass
+                if j == piece_pos[1] and i > piece_pos[0]:
+                    current_piece_legal_moves[i][j] = 1
+                    print(piece_pos[0], i)
+                    if self.get_legal_moves()[1] == 1: return current_piece_legal_moves
         return current_piece_legal_moves
 
 
