@@ -4,7 +4,7 @@ from Game import Game
 
 def run():
     game = Game()
-    king = game.black.king[0]
-    game.board.print_board_to_console(king)
+    queen = game.white.queen[0]
+    game.board.print_board_to_console(queen)
 
 run()

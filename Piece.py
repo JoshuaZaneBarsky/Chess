@@ -74,7 +74,7 @@ class Piece():
     # ←
     def fill_left_of_piece(self, piece_pos, current_piece_legal_moves) -> list:
         for i in range(BOARD_SIZE):
-            for j in range(BOARD_SIZE):
+            for j in range(piece_pos[1],-1, -1):
                 if i != piece_pos[0]:
                     pass
                 if i == piece_pos[0] and j < piece_pos[1]:
@@ -84,7 +84,7 @@ class Piece():
     
     # ↑
     def fill_above_piece(self, piece_pos, current_piece_legal_moves) -> list:
-        for i in range(BOARD_SIZE):
+        for i in range(piece_pos[0],-1, -1):
             for j in range(BOARD_SIZE):
                 if j != piece_pos[1]:
                     pass
@@ -101,7 +101,6 @@ class Piece():
                     pass
                 if j == piece_pos[1] and i > piece_pos[0]:
                     current_piece_legal_moves[i][j] = 1
-                    print(piece_pos[0], i)
                     if self.get_legal_moves()[1] == 1: return current_piece_legal_moves
         return current_piece_legal_moves
 
